@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: #EAD1B5; 
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .calculator {
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            background-color: #FFFCC7; 
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(89, 50, 43, 0.4);
+            border: 3px solid #59322B;
+        }
+
+        .calculator input {
+            width: 100%;
+            height: 60px;
+            text-align: right;
+            font-size: 2em;
+            background-color: #FBD0A6; 
+            color: #59322B;
+            border: 2px solid #B11016;
+            border-radius: 8px;
+            padding-right: 15px;
+            margin-bottom: 15px;
+        }
+
+        .calculator table {
+            width: 100%;
+            table-layout: fixed;
+            border-spacing: 8px;
+        }
+
+        .calculator button {
+            width: 100%;
+            height: 60px;
+            font-size: 1.5em;
+            color: #FFFCC7;
+            background-color: #4DA394; /* Soft retro teal */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .calculator button:hover {
+            background-color: #2ABA9E;
+        }
+
+        .calculator button.operator {
+            background-color: #EF9A48; /* Warm orange */
+            color: #fff;
+        }
+
+        .calculator button.operator:hover {
+            background-color: #E77843;
+        }
+
+        .calculator button.clear {
+            background-color: #D54751; /* Bright red */
+        }
+
+        .calculator button.clear:hover {
+            background-color: #B11016;
+        }
+
+        @media (max-width: 400px) {
+            .calculator button {
+                font-size: 1.2em;
+                height: 50px;
+            }
+
+            .calculator input {
+                font-size: 1.5em;
+                height: 50px;
+            }
+        }
+    </style>
+    <script>
+        function number(num) {
+            document.getElementById('display').value += num;
+        }
+
+        function operation(op) {
+            const display = document.getElementById('display');
+            if (op === '=') {
+                try {
+                    display.value = eval(display.value);
+                } catch (e) {
+                    display.value = 'Error';
+                }
+            } else {
+                display.value += op;
+            }
+        }
+
+        function clearAll() {
+            document.getElementById('display').value = '';
+        }
+
+        function clearEntry() {
+            const display = document.getElementById('display');
+            display.value = display.value.slice(0, -1);
+        }
+    </script>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" readonly />
+        <table>
+            <tr>
+                <td><button onclick="number('7')">7</button></td>
+                <td><button onclick="number('8')">8</button></td>
+                <td><button onclick="number('9')">9</button></td>
+                <td><button class="operator" onclick="operation('+')">+</button></td>
+                <td><button class="operator" onclick="operation('-')">-</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="number('4')">4</button></td>
+                <td><button onclick="number('5')">5</button></td>
+                <td><button onclick="number('6')">6</button></td>
+                <td><button class="operator" onclick="operation('*')">*</button></td>
+                <td><button class="operator" onclick="operation('/')">/</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="number('1')">1</button></td>
+                <td><button onclick="number('2')">2</button></td>
+                <td><button onclick="number('3')">3</button></td>
+                <td><button class="operator" onclick="operation('%')">%</button></td>
+                <td><button class="operator" onclick="operation('**')">^</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="number('0')">0</button></td>
+                <td><button onclick="number('.')">.</button></td>
+                <td><button class="operator" onclick="operation('=')">=</button></td>
+                <td><button class="clear" onclick="clearEntry()">CE</button></td>
+                <td><button class="clear" onclick="clearAll()">C</button></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+
